@@ -1,0 +1,5 @@
+2018-04-24 18:32:21,049 DEBUG    logging_test.py 13    : so that you know something
+2018-04-24 18:32:21,049 INFO     logging_test.py 14    : this is just an info
+2018-04-24 18:32:21,049 WARNING  logging_test.py 15    : could be better
+2018-04-24 18:32:21,049 ERROR    logging_test.py 16    : Huston...
+2018-04-24 18:32:21,049 CRITICAL logging_test.py 17    : Program can't continue
