@@ -77,15 +77,16 @@ def solve():
                 sudoku[x][y]=val
 
                 #input()
-                time.sleep(0.1)
-                print()
-                present()
+                #time.sleep(0.01)
+                #print()
+                #present()
                 if check(x,y) is False:
                     #print("check is false")
                     continue
                 if solve() is False:
                     #print ("solve is False")
                     continue
+                return True
             # give up
             sudoku[x][y]=0
             return False
