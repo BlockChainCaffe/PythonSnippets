@@ -8,7 +8,7 @@ import sys
 import os
 
 board = [[0 for x in range(3)] for y in range(3)]
-win = 3**2
+win = 100
 
 def draw_board():
     # os.system("clear")
@@ -25,29 +25,39 @@ def draw_board():
         if x<2 : print("---+---+---")
 
 
+def the_score(score,zeros):
+    if abs(score)==3 : return win*(score/abs(score))
+    if zeros==0 or score==0 : return 0
+    return score*abs(score)
+
+
 def score_col(i):
-    score=0
+    score, zeros = 0,0
     for x in range(3):
         score+=board[x][i]
-    #print("score of col {} : {} ".format(i,score))
-    return score**2
+        if board[x][i] == 0 : zeros+=1
+    print("score of col {} : {} ".format(i,the_score(score,zeros)))
+    return the_score(score,zeros)
+
 
 def score_row(i):
-    score=0
+    score, zeros = 0,0
     for y in range(3):
         score+=board[i][y]
-    #print("score of row {} : {} ".format(i,score))
-    return score**2
+        if board[i][y] == 0 : zeros+=1
+    print("score of row {} : {} ".format(i,the_score(score,zeros)))
+    return the_score(score,zeros)
 
 def score_dia(i):
-    score=0
+    score, zeros = 0,0
     for y in range(3):
         # i=0 --> 0,1,2
         # i=1 --> 2,4,6 --> 2,1,0
         x=(y+(i*(y+2)))%3
         score+=board[x][y]
-    #print("score of dia {} : {} ".format(i,score))
-    return score**2
+        if board[x][y] == 0 : zeros+=1        
+    print("score of dia {} : {} ".format(i,the_score(score,zeros)))
+    return the_score(score,zeros)
 
 
 def winner():
@@ -97,21 +107,23 @@ def gameover():
 
 
 def ai():
-    """OK, callint it AI is a bit too much, but that's my my code."""
+    """OK, callint it AI is a bit too much, but that's my code."""
     moves=[100 for x in range(9)]
+    print("")
+    print("now: ", end="")
     now=board_balance();
     # Evaluate all possible moves left
     for j in range(9):
         x=int(j/3)
         y=int(j%3)
         if board[x][y]!=0 : continue
-        print(j)
         board[x][y]=-1
+        print("{} : ".format(j+1),end="")
         moves[j]=board_balance();
         board[x][y]=0
 
     best=min(moves)
-    print("best : {}".format(best))
+    print("best : {}".format(best+1))
     for k in range(9):
         if moves[k]==best :
             j=k
@@ -137,10 +149,15 @@ def main():
             draw_board()
             ai()
     draw_board()
-    if winner()==1:
+
+    W=winner()
+    if W==1:
         print ("you win!")
-    else:
-        print ("I win!")
+    else :
+        if W == -1 :
+            print ("I win!")
+        else :
+            print ("Draw !")
 
 
 
