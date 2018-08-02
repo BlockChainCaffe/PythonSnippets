@@ -11,7 +11,7 @@ board = [[0 for x in range(3)] for y in range(3)]
 win = 100
 
 def draw_board():
-    # os.system("clear")
+    os.system("clear")
     print("")
     print("")
     print("")
@@ -36,7 +36,7 @@ def score_col(i):
     for x in range(3):
         score+=board[x][i]
         if board[x][i] == 0 : zeros+=1
-    print("score of col {} : {} ".format(i,the_score(score,zeros)))
+    #print("score of col {} : {} ".format(i,the_score(score,zeros)))
     return the_score(score,zeros)
 
 
@@ -45,7 +45,7 @@ def score_row(i):
     for y in range(3):
         score+=board[i][y]
         if board[i][y] == 0 : zeros+=1
-    print("score of row {} : {} ".format(i,the_score(score,zeros)))
+    #print("score of row {} : {} ".format(i,the_score(score,zeros)))
     return the_score(score,zeros)
 
 def score_dia(i):
@@ -56,7 +56,7 @@ def score_dia(i):
         x=(y+(i*(y+2)))%3
         score+=board[x][y]
         if board[x][y] == 0 : zeros+=1
-    print("score of dia {} : {} ".format(i,the_score(score,zeros)))
+    #print("score of dia {} : {} ".format(i,the_score(score,zeros)))
     return the_score(score,zeros)
 
 
@@ -79,7 +79,6 @@ def winner():
     return 0
 
 
-
 def board_balance():
     balance=0
     for i in range(3):
@@ -87,7 +86,7 @@ def board_balance():
         balance+=score_row(i)
     for d in range(2):
         balance+=score_dia(d)
-    print("balance : {} ".format(balance))
+    #print("balance : {} ".format(balance))
     return balance
 
 
@@ -110,7 +109,7 @@ def ai():
     """OK, callint it AI is a bit too much, but that's my code."""
     moves=[100 for x in range(9)]
     print("")
-    print("now: ", end="")
+    #print("now: ", end="")
     now=board_balance();
     # Evaluate all possible moves left
     for j in range(9):
@@ -118,14 +117,14 @@ def ai():
         y=int(j%3)
         if board[x][y]!=0 : continue
         board[x][y]=-1
-        print("{} : ".format(j+1),end="")
+        #print("{} : ".format(j+1),end="")
         moves[j]=board_balance();
         board[x][y]=1
         moves[j]-=board_balance();
         board[x][y]=0
 
     best=min(moves)
-    print("best : {}".format(best+1))
+    #print("best : {}".format(best+1))
     for k in range(9):
         if moves[k]==best :
             j=k
@@ -135,11 +134,13 @@ def ai():
     board[x][y]=-1
 
 
-
 def playermove():
-    M=int(input("Your move? (1:9)"))-1
-    x=int(M/3)
-    y=int(M%3)
+    print("")
+    while True:
+        M=int(input("Your move? (1:9)"))-1
+        x=int(M/3)
+        y=int(M%3)
+        if board[x][y] == 0 : break
     board[x][y]=1
 
 
@@ -160,9 +161,6 @@ def main():
             print ("I win!")
         else :
             print ("Draw !")
-
-
-
 
 
 if sys.version_info[0] < 3:
