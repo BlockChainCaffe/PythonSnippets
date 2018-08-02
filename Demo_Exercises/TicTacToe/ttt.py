@@ -28,7 +28,7 @@ def draw_board():
 def the_score(score,zeros):
     if abs(score)==3 : return win*(score/abs(score))
     if zeros==0 or score==0 : return 0
-    return score*abs(score)
+    return score*abs(score)*abs(score)
 
 
 def score_col(i):
@@ -55,7 +55,7 @@ def score_dia(i):
         # i=1 --> 2,4,6 --> 2,1,0
         x=(y+(i*(y+2)))%3
         score+=board[x][y]
-        if board[x][y] == 0 : zeros+=1        
+        if board[x][y] == 0 : zeros+=1
     print("score of dia {} : {} ".format(i,the_score(score,zeros)))
     return the_score(score,zeros)
 
@@ -120,6 +120,8 @@ def ai():
         board[x][y]=-1
         print("{} : ".format(j+1),end="")
         moves[j]=board_balance();
+        board[x][y]=1
+        moves[j]-=board_balance();
         board[x][y]=0
 
     best=min(moves)
