@@ -8,10 +8,18 @@ import sys
 default_port = 9999
 buff_size = 1024
 
+def check_params():
+    if len(sys.argv) < 2 :
+        print("not enought parameters")
+        exit(-1)
+    if len(sys.argv) == 2 :
+        sys.argv.append(default_port)
+
 def main():
     # create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    check_params()
     # get local machine name
     host = sys.argv[1]
     port = int(sys.argv[2])

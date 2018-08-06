@@ -10,9 +10,19 @@ default_port = 9999
 max_con = 1
 buff_size = 1024
 
+def check_params():
+    if len(sys.argv) < 1 :
+        print("not enought parameters")
+        exit(-1)
+    if len(sys.argv) == 1 :
+        sys.argv.append(default_port)
+
 def main() :
+
+    check_params()
     # get local machine name
-    host = socket.gethostname()
+    #host = socket.gethostname()
+    host = ""
     port = int(sys.argv[1])
     # bind to the port
     serversocket.bind((host, port))
