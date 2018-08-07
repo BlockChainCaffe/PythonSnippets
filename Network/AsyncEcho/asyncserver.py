@@ -60,7 +60,7 @@ def main() :
                 msg = s.recv(buff_size)
                 msg1 = msg.decode('ascii')
                 print ("received : {} ", format(msg))
-                if msg1 == "exit" or not msg :
+                if msg1[:4] == "exit" or not msg :
                     print("Closing down {}".format(s))
                     buffer.remove( buffer[sockets_out.index(s)] )
                     sockets_in.remove(s)
@@ -68,17 +68,17 @@ def main() :
                     s.close()
                 else :
                     for b in sockets_out :
-                        #if b != s :
-                        i = sockets_out.index(b)
-                        print("adding {} to {} ".format(msg,i))
-                        buffer[i].append(msg)
+                        if b != s or len(sockets_out)==1 :
+                            i = sockets_out.index(b)
+                            print("adding {} to {} ".format(msg,i))
+                            buffer[i].append(msg)
 
         # select returned socket ready for writing
         for s in write :
             if s is serversocket : continue
             if s in sockets_out:
                 i = sockets_out.index(s)
-                print ("S is {}, index {}".format(s,i))
+                #print ("S is {}, index {}".format(s,i))
                 if len(buffer[i]) == 0 : continue
                 print ("could write to socket {} this: {}".format(i,buffer[i][0]) )
                 s.send(buffer[i][0])
