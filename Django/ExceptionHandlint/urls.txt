@@ -1,0 +1,3 @@
+https://medium.com/@mwhitt.w/restful-error-messages-with-django-537047892dff
+https://codeburst.io/building-an-api-with-django-rest-framework-and-class-based-views-75b369b30396
+
