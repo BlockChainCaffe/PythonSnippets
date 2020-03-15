@@ -18,6 +18,10 @@ Colors = ['y:','y--','y-','c:','b-','b--','w--','mo-','r-','b,']
 response = urllib.request.urlopen(DataURL)
 data = response.read().decode("utf-8")
 
+# print("---")
+# print(data)
+# print("---")
+
 # Turn row data into series
 rows = data.split("\n")
 labels = rows[0].split(",")[2:]
@@ -31,10 +35,13 @@ for l in labels:
 # skip first raw ... 
 for r in range(1,len(rows)):
     values = rows[r].split(",")
+    if len(values) < len(labels)+2 :
+        continue
     x.append(values[0][5:10])
     # ...and first two colums
     for v in range (2,len(values)):
         series[v-2].append(int(values[v]))
+
 
 # Do the plot
 with plt.style.context('dark_background'):
