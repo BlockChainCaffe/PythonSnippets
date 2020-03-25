@@ -11,7 +11,7 @@ DataURL = 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andame
 'tamponi']
 '''
 
-Show = [True,True,True,True,True,True,True,True,True,False]
+Show = [True,True,True,True,True,True,True,True,True,False,False,False,False,False,False]
 Colors = ['y:','y--','y-','c:','b-','b--','w--','mo-','r-','b,']
 
 # Download data
@@ -24,7 +24,10 @@ data = response.read().decode("utf-8")
 
 # Turn row data into series
 rows = data.split("\n")
+# print(len(rows))
+# print(rows[0])
 labels = rows[0].split(",")[2:]
+# print(len(labels))
 
 # X axis value
 x = []
@@ -40,8 +43,7 @@ for r in range(1,len(rows)):
     x.append(values[0][5:10])
     # ...and first two colums
     for v in range (2,len(values)):
-        series[v-2].append(int(values[v]))
-
+        series[v-2].append( int(values[v]) if values[v].isdigit() else 0 )
 
 # Do the plot
 with plt.style.context('dark_background'):
