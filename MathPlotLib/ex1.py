@@ -41,7 +41,7 @@ for r in range(1,len(rows)):
     if len(values) < len(labels)+2 :
         continue
     x.append(values[0][5:10])
-    # ...and first two colums
+    # ...and first two columsq
     for v in range (2,len(values)):
         series[v-2].append( int(values[v]) if values[v].isdigit() else 0 )
 
